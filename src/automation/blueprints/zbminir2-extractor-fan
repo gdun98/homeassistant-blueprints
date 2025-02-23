@@ -1,6 +1,6 @@
 blueprint:
-  name: ZBMINIR2 detached relay mode
-  description: Configure ZBMINIR2 as a light switch where toggling the switch will not toggle the relay, but instead trigger smart bulbs.
+  name: ZBMINIR2 extractor fan
+  description: Configure ZBMINIR2 as an extractor fan, triggering it when a light is turned on.
   domain: automation
   homeassistant:
     min_version: 2025.2.4
@@ -45,14 +45,14 @@ actions:
         sequence:
           - service: switch.turn_off
             target:
-            entity_id: "{{ zbminir2_switch }}"
+              entity_id: "{{ zbminir2_switch }}"
       - conditions:
           - alias: "Light is on"
             condition: template
-            value_template: "{{ states(zbminir2) == 'on' }}"
+            value_template: "{{ states(light) == 'on' }}"
         sequence:
           - service: switch.turn_on
             target:
-            entity_id: "{{ zbminir2_switch }}"
+              entity_id: "{{ zbminir2_switch }}"
 
 mode: single
