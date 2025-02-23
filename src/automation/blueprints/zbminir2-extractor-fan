@@ -28,7 +28,7 @@ blueprint:
           multiple: false
 
 triggers:
-  - entity_id: !input "light_group"
+  - entity_id: !input "light"
     trigger: state
 
 variables:
@@ -44,8 +44,8 @@ actions:
             value_template: "{{ states(light) == 'off' }}"
         sequence:
           - service: switch.turn_off
-              target:
-              entity_id: "{{ zbminir2_switch }}"
+            target:
+            entity_id: "{{ zbminir2_switch }}"
       - conditions:
           - alias: "Light is on"
             condition: template
